@@ -59,4 +59,4 @@ class Projectile(Object):
     def check_collision(self, player):
         if pygame.sprite.collide_mask(self, player):
             player.die()
-            self.kill() 
+            self.kill()

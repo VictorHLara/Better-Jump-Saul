@@ -1,25 +1,24 @@
 import pygame
 
 class Menu:
-    '''Classe para mostrar o menu inicial'''
 
-    def __init__(self, tela, wallpaper_image_path):
-        self.__tela = tela
+    def __init__(self, window, wallpaper_image_path):
+        self.__window = window
 
     @property
-    def tela(self):
-        return self.__tela
+    def window(self):
+        return self.__window
 
-    @tela.setter
-    def tela(self, value):
-        self.__tela = value
+    @window.setter
+    def window(self, value):
+        self.__window = value
 
-    def show_initial_menu(self, tela, wallpaper_image_path):
-        from utils import LARGURA, ALTURA
+    def show_initial_menu(self, window, wallpaper_image_path):
+        from utils import WIDTH, HEIGHT
         wallpaper = pygame.image.load(wallpaper_image_path)
-        wallpaper = pygame.transform.scale(wallpaper, (LARGURA, ALTURA))
+        wallpaper = pygame.transform.scale(wallpaper, (WIDTH, HEIGHT))
 
-        tela.blit(wallpaper, (0, 0))
+        window.blit(wallpaper, (0, 0))
         pygame.display.update()
 
         waiting = True
@@ -30,8 +29,3 @@ class Menu:
                     exit()
                 if event.type == pygame.KEYDOWN:
                     waiting = False
-
-    
- 
-
-    

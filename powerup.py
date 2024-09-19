@@ -3,14 +3,14 @@ from object import Object
 import os
 
 class PowerUp(Object):
-    def __init__(self, x, y, largura, altura, sprites):
-        super().__init__(x, y, largura, altura)
+    def __init__(self, x, y, width, height, sprites):
+        super().__init__(x, y, width, height)
         self.__sprites = sprites
         self.__image = sprites["idle_left"][0]
         self.__rect = self.image.get_rect()
         self.__rect.topleft = (x, y)
         self.__is_collected = False
-        self.__collect_sound = pygame.mixer.Sound(os.path.join("assets", "sons", "powerup.wav"))
+        self.__collect_sound = pygame.mixer.Sound(os.path.join("assets", "sounds", "powerup.wav"))
 
     @property
     def sprites(self):
@@ -70,9 +70,9 @@ class PowerUp(Object):
             self.is_collected = True
             self.apply_effect(player)
 
-    def draw(self, screen, offset_x):
+    def draw(self, window, offset_x):
         if not self.is_collected:
-            screen.blit(self.image, (self.rect.x - offset_x, self.rect.y))
+            window.blit(self.image, (self.rect.x - offset_x, self.rect.y))
 
     def apply_effect(self, player):
         self.collect_sound.play()

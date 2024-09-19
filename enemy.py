@@ -2,35 +2,35 @@ import pygame
 from character import Character
 
 class Enemy(Character):
-    def __init__(self, x, y, largura, altura, velocidade, sprites):
-        super().__init__(x, y, largura, altura, sprites)
-        self.__velocidade = velocidade
-        self.__direcao = "left"
+    def __init__(self, x, y, width, height, speed, sprites):
+        super().__init__(x, y, width, height, sprites)
+        self.__speed = speed
+        self.__direction = "left"
 
     @property
-    def velocidade(self):
-        return self.__velocidade
+    def speed(self):
+        return self.__speed
 
-    @velocidade.setter
-    def velocidade(self, value):
-        self.__velocidade = value
+    @speed.setter
+    def speed(self, value):
+        self.__speed = value
 
     @property
-    def direcao(self):
-        return self.__direcao
+    def direction(self):
+        return self.__direction
 
-    @direcao.setter
-    def direcao(self, value):
-        self.__direcao = value
+    @direction.setter
+    def direction(self, value):
+        self.__direction = value
 
     def move(self):
-        if self.direcao == "left":
-            self.move_left(self.velocidade)
+        if self.direction == "left":
+            self.move_left(self.speed)
         else:
-            self.move_right(self.velocidade)
+            self.move_right(self.speed)
 
     def reverse_direction(self):
-        self.direcao = "right" if self.direcao == "left" else "left"
+        self.direction = "right" if self.direction == "left" else "left"
 
     def update(self, player, objects, enemies):
         if self.is_alive:

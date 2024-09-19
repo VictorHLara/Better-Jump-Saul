@@ -1,4 +1,4 @@
 PYTHON = python3
 
 run:
-	${PYTHON} game.py
+	${PYTHON} main.py

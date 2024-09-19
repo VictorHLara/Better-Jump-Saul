@@ -1,19 +1,19 @@
 import pygame
 
 class Character(pygame.sprite.Sprite):
-    GRAVIDADE = 1
-    DELAY_ANIMACAO = 3
+    GRAVITY = 1
+    ANIMATION_DELAY = 3
 
-    def __init__(self, x, y, largura, altura, sprites):
+    def __init__(self, x, y, width, height, sprites):
         super().__init__()
         self.__SPRITES = sprites
-        self.__rect = pygame.Rect(x, y, largura, altura)
+        self.__rect = pygame.Rect(x, y, width, height)
         self.__x_vel = 0
         self.__y_vel = 0
         self.__mask = None
-        self.__direcao = "left"
-        self.__animacao_contagem = 0
-        self.__queda_contagem = 0
+        self.__direction = "left"
+        self.__animation_count = 0
+        self.__fall_count = 0
         self.__is_alive = True
 
     @property
@@ -57,28 +57,28 @@ class Character(pygame.sprite.Sprite):
         self.__mask = value
 
     @property
-    def direcao(self):
-        return self.__direcao
+    def direction(self):
+        return self.__direction
 
-    @direcao.setter
-    def direcao(self, value):
-        self.__direcao = value
-
-    @property
-    def animacao_contagem(self):
-        return self.__animacao_contagem
-
-    @animacao_contagem.setter
-    def animacao_contagem(self, value):
-        self.__animacao_contagem = value
+    @direction.setter
+    def direction(self, value):
+        self.__direction = value
 
     @property
-    def queda_contagem(self):
-        return self.__queda_contagem
+    def animation_count(self):
+        return self.__animation_count
 
-    @queda_contagem.setter
-    def queda_contagem(self, value):
-        self.__queda_contagem = value
+    @animation_count.setter
+    def animation_count(self, value):
+        self.__animation_count = value
+
+    @property
+    def fall_count(self):
+        return self.__fall_count
+
+    @fall_count.setter
+    def fall_count(self, value):
+        self.__fall_count = value
 
     @property
     def is_alive(self):
@@ -94,35 +94,35 @@ class Character(pygame.sprite.Sprite):
 
     def move_left(self, vel):
         self.x_vel = -vel
-        if self.direcao != "left":
-            self.direcao = "left"
-            self.animacao_contagem = 0
+        if self.direction != "left":
+            self.direction = "left"
+            self.animation_count = 0
 
     def move_right(self, vel):
         self.x_vel = vel
-        if self.direcao != "right":
-            self.direcao = "right"
-            self.animacao_contagem = 0
+        if self.direction != "right":
+            self.direction = "right"
+            self.animation_count = 0
 
     def apply_gravity(self, fps):
-        self.y_vel += min(1, (self.queda_contagem / fps)) * self.GRAVIDADE
+        self.y_vel += min(1, (self.fall_count / fps)) * self.GRAVITY
         self.move(self.x_vel, self.y_vel)
-        self.queda_contagem += 1
+        self.fall_count += 1
 
     def update_sprite(self):
         spritesheet = "idle"
         if self.y_vel < 0:
             spritesheet = "jump"
-        elif self.y_vel > self.GRAVIDADE * 2:
+        elif self.y_vel > self.GRAVITY * 2:
             spritesheet = "fall"
         elif self.x_vel != 0:
             spritesheet = "run"
 
-        spritesheet_nome = spritesheet + "_" + self.direcao
+        spritesheet_nome = spritesheet + "_" + self.direction
         sprites = self.SPRITES[spritesheet_nome]
-        sprite_index = (self.animacao_contagem // self.DELAY_ANIMACAO) % len(sprites)
+        sprite_index = (self.animation_count // self.ANIMATION_DELAY) % len(sprites)
         self.sprite = sprites[sprite_index]
-        self.animacao_contagem += 1
+        self.animation_count += 1
 
         self.update_rect_and_mask()
 
@@ -148,9 +148,6 @@ class Character(pygame.sprite.Sprite):
                 self.reverse_direction()
                 break
 
-    def on_collision_with_character(self, character):
-        pass
-
     def on_collision_with_object(self, obj):
         if self.y_vel > 0:
             self.rect.bottom = obj.rect.top
@@ -166,7 +163,7 @@ class Character(pygame.sprite.Sprite):
             self.x_vel = 0
 
     def landed(self):
-        self.queda_contagem = 0
+        self.fall_count = 0
         self.y_vel = 0
 
     def hit_head(self):

@@ -1,13 +1,13 @@
 import pygame
 
 class Object(pygame.sprite.Sprite):
-    def __init__(self, x, y, largura, altura, nome=None):
+    def __init__(self, x, y, width, height, name=None):
         super().__init__()
-        self.__rect = pygame.Rect(x, y, largura, altura)
-        self.__image = pygame.Surface((largura, altura), pygame.SRCALPHA)
-        self.__largura = largura
-        self.__altura = altura
-        self.__nome = nome
+        self.__rect = pygame.Rect(x, y, width, height)
+        self.__image = pygame.Surface((width, height), pygame.SRCALPHA)
+        self.__width = width
+        self.__height = height
+        self.__name = name
 
     @property
     def rect(self):
@@ -27,27 +27,27 @@ class Object(pygame.sprite.Sprite):
 
     @property
     def width(self):
-        return self.__largura
+        return self.__width
 
     @width.setter
     def width(self, value):
-        self.__largura = value
+        self.__width = value
 
     @property
     def height(self):
-        return self.__altura
+        return self.__height
 
     @height.setter
     def height(self, value):
-        self.__altura = value
+        self.__height = value
 
     @property
     def nome(self):
-        return self.__nome
+        return self.__name
 
     @nome.setter
     def nome(self, value):
-        self.__nome = value
+        self.__name = value
 
     def draw(self, win, offset_x):
         win.blit(self.image, (self.rect.x - offset_x, self.rect.y))
