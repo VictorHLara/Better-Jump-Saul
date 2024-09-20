@@ -52,7 +52,7 @@ class Score:
 
             pygame.draw.rect(self.window, color, input_box, 2)
 
-            prompt_text = font.render("INSERT YOUR NAME:", True, (255, 255, 255))
+            prompt_text = font.render("INSIRA SEU NOME:", True, (255, 255, 255))
             self.window.blit(prompt_text, (WIDTH // 2 - prompt_text.get_width() // 2, HEIGHT // 2 - 100))
 
             pygame.display.flip()

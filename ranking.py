@@ -1,8 +1,6 @@
 import pygame
 import json
 import os
-from os.path import isfile,join
-from os import listdir
 class Ranking:
 
     def __init__(self, window):
@@ -28,7 +26,7 @@ class Ranking:
             else:
                 raise FileNotFoundError
         except FileNotFoundError:
-            print(f"File {filename} not found. The ranking will not be saved.")
+            print(f"Arquivo {filename} não encontrado. O ranking não será salvo.")
             return [] 
 
         ranking.append({"name": player_name, "time": total_time})
